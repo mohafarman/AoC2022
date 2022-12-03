@@ -29,8 +29,6 @@ int hands = 3, points;	// Hands = choices in the game
 
 void part_2(char *opponent, char *outcome) {
 
-	printf("Opponent: %s\tOutcome: %s\n", opponent, outcome);
-	
 	// Outcome has to be a win
 	if (strcmp(outcome, O_Win) == 0) {
 		points += Won;
@@ -65,13 +63,13 @@ void part_2(char *opponent, char *outcome) {
 	if (strcmp(outcome, O_Lose) == 0) {
 		points += Lost;	// 0
 		if (strcmp(opponent, O_Rock) == 0) {	// Opponent choses Rock
-			points += Paper;
+			points += Scissors;
 		}
 		else if (strcmp(opponent, O_Paper) == 0) {	// Opponent choses Rock
 			points += Rock;
 		}
 		else {
-			points += Scissors;
+			points += Paper;
 		}
 		return;
 	}
@@ -97,10 +95,6 @@ int main() {
 		proponent = strtok(NULL, delim_new_row);
 
 		part_2(opponent, proponent);
-		if (flag == 4) {
-			printf("Total points: %d\n", points);
-			return 0;
-		}
 	}
 
 	printf("Total points: %d\n", points);
