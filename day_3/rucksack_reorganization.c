@@ -42,10 +42,12 @@ void compare_compartments(char comp_1[BUFFER], char comp_2[BUFFER], int length) 
 
 	half_length = length;
 
-	for (i = 0; i < length; i++) {
-		for (k = 0; k < length; k++) {
+	// Compare both buffers in a double for loop
+	for (i = 0; i < half_length; i++) {
+		for (k = 0; k < half_length; k++) {
 			if (comp_1[i] == comp_2[k]) {
 				//printf("Comp 1: %c\tCompt 2: %c\n", comp_1[i], comp_2[k]);
+
 				if (isupper(comp_1[i])) {	// A - Z
 					ascii = comp_1[i] - 'A'+27;
 				} 
