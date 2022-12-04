@@ -18,21 +18,21 @@ int points = 0;
 Compartments split_into_compartments(char list[BUFFER]) {
 	/* Function to split input buffer and return two seperate buffers
 	 * Using struct to "return" multiple variables from a func */
-	
+
 	Compartments compartments;
 	int mid, i, k;
 
 	compartments.length = strlen(list);
 	mid = compartments.length / 2;
 
-	for (i = 0; i < mid; i++) {
+	for (i = 0; i < mid + 1; i++) {
 		compartments._1[i] = list[i];
 	}
 	// End of line, C style strings
 	compartments._1[i] = '\0';
 
 	// Start from the mid and work towards end of string
-	for (i = mid, k = 0; i <= compartments.length; i++, k++) {
+	for (i = mid, k = 0; i <= compartments.length + 1; i++, k++) {
 		compartments._2[k] = list[i];
 	}
 
@@ -44,48 +44,38 @@ void compare_compartments(char comp_1[BUFFER], char comp_2[BUFFER], int length) 
 
 	int i = 0, k, ascii, half_length;
 
-	half_length = length;
+	/*
+	 * Solution from https://github.com/6rian/practice-c/blob/main/advent-of-code-2022/day3/day3.c
+	 * strcspn = string compare span
+	 * Return position of character that is not found in the other string
+	 */
+	size_t loc = strcspn(comp_1, comp_2);	// Compare strings
+	char item = comp_1[loc];
 
-	// Compare both buffers in a double for loop
-	for (i = 0; i < half_length; i++) {
-		for (k = 0; k < half_length; k++) {
-			if (comp_1[i] == comp_2[k]) {
-				//printf("Comp 1: %c\tCompt 2: %c\n", comp_1[i], comp_2[k]);
-
-				if (isupper(comp_1[i])) {	// A - Z
-					ascii = comp_1[i] - 'A'+27;
-				} 
-				else {						// a - z 
-					ascii = comp_1[i] - 'a'+1;
-				}
-				points += ascii;
-				//printf("%c has value %d\n", comp_1[i], ascii);
-				//printf("%c\n", comp_1[i]);
-				return;
-			}
-		}
+	if (isupper(item)) {	// A - Z
+		ascii = item - 'A'+27;
+	} 
+	else {						// a - z 
+		ascii = item - 'a'+1;
 	}
+
+	points += ascii;
 }
 
 int main() {
 	Compartments compartments;
-	//int rucksack = 0;
 	char filename[8] = "input";
 	FILE *file = fopen(filename, "r");
-
 	char buffer[BUFFER];
 
 	while (fgets(buffer, sizeof(buffer), file)) {
-		//printf("----------\nRucksack #%d\n", rucksack);
 		compartments = split_into_compartments(buffer);
 
 		compare_compartments(compartments._1, compartments._2, compartments.length);
-		//rucksack++;
 
 	}
+	fclose(file);
 
-	//printf("\n");
 	printf("Total sum: %d\n", points);
-
 	return 0;
 }
