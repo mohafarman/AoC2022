@@ -16,7 +16,9 @@ int points = 0;
  * Solution thanks to https://btechgeeks.com/c-program-to-divide-a-string-into-two-equal-strings/
  */
 Compartments split_into_compartments(char list[BUFFER]) {
-	// Using struct to "return" multiple variables from a func
+	/* Function to split input buffer and return two seperate buffers
+	 * Using struct to "return" multiple variables from a func */
+	
 	Compartments compartments;
 	int mid, i, k;
 
@@ -38,6 +40,8 @@ Compartments split_into_compartments(char list[BUFFER]) {
 }
 
 void compare_compartments(char comp_1[BUFFER], char comp_2[BUFFER], int length) {
+	/* Function to compare the two buffers */
+
 	int i = 0, k, ascii, half_length;
 
 	half_length = length;
@@ -65,7 +69,7 @@ void compare_compartments(char comp_1[BUFFER], char comp_2[BUFFER], int length) 
 
 int main() {
 	Compartments compartments;
-	int rucksack = 0;
+	//int rucksack = 0;
 	char filename[8] = "input";
 	FILE *file = fopen(filename, "r");
 
@@ -76,7 +80,7 @@ int main() {
 		compartments = split_into_compartments(buffer);
 
 		compare_compartments(compartments._1, compartments._2, compartments.length);
-		rucksack++;
+		//rucksack++;
 
 	}
 
